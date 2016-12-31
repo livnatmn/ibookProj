@@ -32,7 +32,7 @@ public class SearchReviewsPanel extends JPanel{
 	private void initialize() {				
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Search reviews");
+		JLabel lblTitle = new JLabel("Search reviews 123");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Goudy Stout", Font.PLAIN, 15));
 		lblTitle.setBounds(0, 21, 336, 20);
