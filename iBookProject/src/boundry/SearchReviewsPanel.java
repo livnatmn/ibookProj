@@ -15,9 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSplitPane;
 import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
 import java.awt.FlowLayout;
 
 
