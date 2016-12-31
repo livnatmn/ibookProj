@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -72,7 +73,7 @@ public class RegistPanel extends JPanel{
 		add(tfFirstName);
 		tfFirstName.setColumns(10);
 		
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
 		tfPassword.setBounds(162, 237, 174, 20);
 		add(tfPassword);
 		tfPassword.setColumns(10);
@@ -82,14 +83,14 @@ public class RegistPanel extends JPanel{
 		add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		tfRePassword = new JTextField();
-		tfRePassword.setColumns(10);
+		tfRePassword = new JPasswordField();
+		tfRePassword.setColumns(10 );
 		tfRePassword.setBounds(161, 268, 174, 20);
 		add(tfRePassword);
 		
-		JLabel lblRepeatPass = new JLabel("Repeat password:");
+		JLabel lblRepeatPass = new JLabel("Confirm password:");
 		lblRepeatPass.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-		lblRepeatPass.setBounds(29, 269, 126, 19);
+		lblRepeatPass.setBounds(10, 269, 145, 19);
 		add(lblRepeatPass);
 		
 		tfLastName = new JTextField();
