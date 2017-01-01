@@ -132,7 +132,7 @@ public class Login {
 							frmLogin.dispose();
 							break;
 						case 2:	// open Librarian window and shut current frame.
-							new UserWindow(accCntrl);
+							new WorkerGeneralUI(accCntrl);
 							frmLogin.dispose();
 							break;
 						case 3:	// open Manager window and shut current frame.
