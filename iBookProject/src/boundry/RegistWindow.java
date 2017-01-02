@@ -28,17 +28,17 @@ public class RegistWindow {
 		frmRegistWindow = new JFrame();
 		frmRegistWindow.setTitle("iBook - Registration Window");
 		frmRegistWindow.getContentPane().setBackground(Color.WHITE);
-		frmRegistWindow.setBounds(100, 100, 677, 513);
+		frmRegistWindow.setBounds(100, 100, 369, 404);
 	//	frmRegistWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ////
 		frmRegistWindow.getContentPane().setLayout(null);
 
 		pnlRegist = new RegistPanel();
-		pnlRegist.setBounds(230, 22, 352, 333);
+		pnlRegist.setBounds(0, 0, 352, 333);
 		pnlRegist.setVisible(true);
 		frmRegistWindow.getContentPane().add(pnlRegist);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(230, 355, 352, 31);
+		panel.setBounds(0, 333, 352, 31);
 		frmRegistWindow.getContentPane().add(panel);
 		panel.setLayout(null);
 		

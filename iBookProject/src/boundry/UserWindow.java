@@ -19,6 +19,7 @@ public class UserWindow {
 
 	private JFrame frmUserWindow;
 	private JPanel pnlSrchBook;
+//	private JPanel pnlCb;
 	private JPanel pnlSrchReviews;
 	private AccountController accCntrl;
 	
@@ -54,7 +55,13 @@ public class UserWindow {
 		pnlSrchBook.setBounds(230, 22, 352, 430);
 		pnlSrchBook.setVisible(false);
 		frmUserWindow.getContentPane().add(pnlSrchBook);
-				
+			
+		
+	/*	pnlCb = new cbPanel();
+		pnlCb.setBounds(230, 22, 352, 430);
+		pnlCb.setVisible(false);
+		frmUserWindow.getContentPane().add(pnlCb);
+	*/	
 		pnlSrchReviews = new SearchReviewsPanel();
 		pnlSrchReviews.setBounds(230, 22, 352, 430);
 		pnlSrchReviews.setVisible(false);
@@ -69,6 +76,7 @@ public class UserWindow {
 		btnSrchWorker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pnlSrchBook.setVisible(true);
+				//pnlCb.setVisible(true);
 				pnlSrchReviews.setVisible(false);
 			}
 		});
