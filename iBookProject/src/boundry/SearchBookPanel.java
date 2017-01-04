@@ -4,14 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import controller.*;
+
 import java.util.*;
 import java.text.SimpleDateFormat;
-	 
-	/* ComboBoxDemo2.java requires no other files. */
+
+
 public class SearchBookPanel extends JPanel
 	                     implements ActionListener {
     static JFrame frame;
-    String currentPattern;
+    SearchBookController srchBookCtrl;
+    String[] categoriesName;
+    private int chosenCatID;
     
 	private JTextField tfTitle;
 	private JTextField tfAuthor;
@@ -20,21 +25,17 @@ public class SearchBookPanel extends JPanel
 	private JComboBox cbCategory;
  
     public SearchBookPanel() {
+    	srchBookCtrl = new SearchBookController();
+   // 	srchBookCtrl.GetAllCategories();
     	initialize();
     }
     
     
 	private void initialize() {	
-        String[] Categories = {
-                 "",
-                 "Category111",
-                 "Category222",
-                 "Category333"
-                 };
- 
-        currentPattern = Categories[0];
+		//categoriesName = srchBookCtrl.GetCategories();
+		srchBookCtrl.GetAllCatsAndSubs();
+		categoriesName = srchBookCtrl.GetCategoriesName();
         setLayout(null);
- 
 
 		JLabel lblSearchTitle = new JLabel("Search for book");
 		lblSearchTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -122,7 +123,7 @@ public class SearchBookPanel extends JPanel
 		add(btnSearch);
                
     //    setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        cbCategory = new JComboBox(Categories);
+        cbCategory = new JComboBox(categoriesName);
         cbCategory.setBounds(98, 198, 155, 21);
         add(cbCategory);
         cbCategory.setEditable(true);
@@ -133,40 +134,34 @@ public class SearchBookPanel extends JPanel
  
     public void actionPerformed(ActionEvent e) {
         JComboBox cb = (JComboBox)e.getSource();
-        String newSelection = (String)cb.getSelectedItem();
-        cbSubject.addItem(newSelection);
-		cbSubject.setEnabled(true);
+        String selection = (String)cb.getSelectedItem();
+        if(!selection.equals(""))
+        {
+	        chosenCatID = srchBookCtrl.GetCategoryIDByName(selection);
+	        
+	        System.out.println("chosenCatID= "+chosenCatID);
+	        cbSubject.removeAllItems();
+	        ArrayList<String> subName = srchBookCtrl.GetSubjectsByCategory(chosenCatID);
+	        for(String val: subName)
+	        	cbSubject.addItem(val);
+			cbSubject.setEnabled(true);
+        }
+        else
+        {
+        	cbSubject.removeAllItems();
+        	cbSubject.setEnabled(false);
+        }
         
     }
 
     
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("ComboBoxDemo2");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
-        //Create and set up the content pane.
-        JComponent newContentPane = new SearchBookPanel();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
- 
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-    
-
 	private void SearchBook(){
+		
 		// Check if all fields are empty - a search not performed.
 		if(tfTitle.getText().equals("") &&
 				tfAuthor.getText().equals("") &&
 				cbLanguage.getItemCount() == 0 &&
-				cbCategory.getItemCount() == 0 &&
+				cbCategory.getSelectedItem().equals("") &&
 				cbSubject.getItemCount() == 0)
 			JOptionPane.showMessageDialog(null,"Please insert any value for search.", "Search Error",JOptionPane.ERROR_MESSAGE);
 		
