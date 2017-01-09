@@ -3,7 +3,7 @@ package boundry;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 import java.util.*;
 import controller.*;
 
@@ -259,61 +259,61 @@ public class SearchBookPanel extends JPanel
 		{
 			EmptyFields();
 		}
-		else
-		{ // at least 1 field filled for search
-			//	fieldsCount = 0;
-			
-			ArrayList<Pair<String,String>> arr_srchFlds = new ArrayList<Pair<String,String>>();
-			arr_srchFlds.clear();
-			
-			if(!tfTitle.getText().equals(""))
-				arr_srchFlds.add(new Pair<String,String>("title",tfTitle.getText()));
-
-			txt = (String)cbAuthor.getSelectedItem();
-			if(!txt.equals(""))
-				arr_srchFlds.add(new Pair<String,String>("author",txt));
-
-			txt = (String)cbLanguage.getSelectedItem();
-			if(!txt.equals(""))
-				arr_srchFlds.add(new Pair<String,String>("language",txt));
-
-			txt = (String)cbCategory.getSelectedItem();
-			if(!txt.equals(""))
-			{
-				arr_srchFlds.add(new Pair<String,String>("category",txt));
-				
-				txt = (String)cbSubject.getSelectedItem();
-				arr_srchFlds.add(new Pair<String,String>("subject",txt));
-			}
-			
-			if(arr_srchFlds.isEmpty())
-				EmptyFields();
-			else if(arr_srchFlds.size() == 1)
-			{
-				System.out.println("arr_srchFlds.size() == 1");
-				SearchByOneField(arr_srchFlds);
-			}
-			else
-			{
-				String action;
-				if(rdbtnOr.isSelected() || rdbtnAnd.isSelected())
-				{
-					action = (rdbtnOr.isSelected())? " OR " : " AND ";
-					SearchBySomeFields(arr_srchFlds, action);
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null,"You selected more then 1 field to search.\n"
-							+ "please choose search option(OR / AND).", "Search Info",JOptionPane.INFORMATION_MESSAGE);
-	
-					lblSearchBy.setEnabled(true);
-					rdbtnOr.setEnabled(true);
-					rdbtnAnd.setEnabled(true);
-					rdbtnOr.setSelected(false);
-					rdbtnAnd.setSelected(false);
-				} // end else choose action.
-			} // end else Search by some fields.
-		} // end else fields not empty.
+//		else
+//		{ // at least 1 field filled for search
+//			//	fieldsCount = 0;
+//			
+//			ArrayList<Pair<String,String>> arr_srchFlds = new ArrayList<Pair<String,String>>();
+//			arr_srchFlds.clear();
+//			
+//			if(!tfTitle.getText().equals(""))
+//				arr_srchFlds.add(new Pair<String,String>("title",tfTitle.getText()));
+//
+//			txt = (String)cbAuthor.getSelectedItem();
+//			if(!txt.equals(""))
+//				arr_srchFlds.add(new Pair<String,String>("author",txt));
+//
+//			txt = (String)cbLanguage.getSelectedItem();
+//			if(!txt.equals(""))
+//				arr_srchFlds.add(new Pair<String,String>("language",txt));
+//
+//			txt = (String)cbCategory.getSelectedItem();
+//			if(!txt.equals(""))
+//			{
+//				arr_srchFlds.add(new Pair<String,String>("category",txt));
+//				
+//				txt = (String)cbSubject.getSelectedItem();
+//				arr_srchFlds.add(new Pair<String,String>("subject",txt));
+//			}
+//			
+//			if(arr_srchFlds.isEmpty())
+//				EmptyFields();
+//			else if(arr_srchFlds.size() == 1)
+//			{
+//				System.out.println("arr_srchFlds.size() == 1");
+//				SearchByOneField(arr_srchFlds);
+//			}
+//			else
+//			{
+//				String action;
+//				if(rdbtnOr.isSelected() || rdbtnAnd.isSelected())
+//				{
+//					action = (rdbtnOr.isSelected())? " OR " : " AND ";
+//					SearchBySomeFields(arr_srchFlds, action);
+//				}
+//				else
+//				{
+//					JOptionPane.showMessageDialog(null,"You selected more then 1 field to search.\n"
+//							+ "please choose search option(OR / AND).", "Search Info",JOptionPane.INFORMATION_MESSAGE);
+//	
+//					lblSearchBy.setEnabled(true);
+//					rdbtnOr.setEnabled(true);
+//					rdbtnAnd.setEnabled(true);
+//					rdbtnOr.setSelected(false);
+//					rdbtnAnd.setSelected(false);
+//				} // end else choose action.
+//			} // end else Search by some fields.
+//		} // end else fields not empty.
 	} // end else SearchBook function.
 	
 	
@@ -327,21 +327,21 @@ public class SearchBookPanel extends JPanel
 	}
 	
 	
-	private void SearchByOneField(ArrayList<Pair<String,String>> arr_srchFlds)
-	{
-		lblSearchBy.setEnabled(false);
-		rdbtnOr.setEnabled(false);
-		rdbtnOr.setSelected(false);
-		rdbtnAnd.setEnabled(false);
-		rdbtnAnd.setSelected(false);
-		
-		srchBookCtrl.SearchBookByOneFeature(arr_srchFlds);
-	}
-	
-	
-	private void SearchBySomeFields(ArrayList<Pair<String,String>> arr_srchFlds, String action)
-	{
-		srchBookCtrl.SearchBookBySomeFeatures(arr_srchFlds, action);
-		
-	}
+//	private void SearchByOneField(ArrayList<Pair<String,String>> arr_srchFlds)
+//	{
+//		lblSearchBy.setEnabled(false);
+//		rdbtnOr.setEnabled(false);
+//		rdbtnOr.setSelected(false);
+//		rdbtnAnd.setEnabled(false);
+//		rdbtnAnd.setSelected(false);
+//		
+//		srchBookCtrl.SearchBookByOneFeature(arr_srchFlds);
+//	}
+//	
+//	
+//	private void SearchBySomeFields(ArrayList<Pair<String,String>> arr_srchFlds, String action)
+//	{
+//		srchBookCtrl.SearchBookBySomeFeatures(arr_srchFlds, action);
+//		
+//	}
 }
