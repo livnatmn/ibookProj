@@ -29,6 +29,10 @@ public class WorkerGeneralUI {
 	protected JPanel pnlRemoveBook;
 	protected JPanel pnlUpdateBook;
 	protected JPanel pnlWatchExamineReviews;
+	protected JButton btnAddbook;
+	protected JButton btnRemoveBook;
+	protected JButton btnUpdateBook;
+	protected JButton btnWatchReviews;
 	private AccountController accCntrl;
 
 	
@@ -57,7 +61,7 @@ public class WorkerGeneralUI {
 		frmWorkerGeneralUI = new JFrame();
 		frmWorkerGeneralUI.setTitle("iBook - Librarian Window");
 		frmWorkerGeneralUI.getContentPane().setBackground(Color.WHITE);
-		frmWorkerGeneralUI.setBounds(100, 100, 750, 570);
+		frmWorkerGeneralUI.setBounds(100, 100, 750, 898);
 		frmWorkerGeneralUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWorkerGeneralUI.getContentPane().setLayout(null); 
 		frmWorkerGeneralUI.setVisible(true);
@@ -91,7 +95,7 @@ public class WorkerGeneralUI {
 		JPanel pnlStart = new WelcomePanel(accCntrl.usr.GetUserName());
 		pnlStart.setBounds(230, 22, 352, 430);
 		pnlStart.setVisible(true);
-		frmWorkerGeneralUI.add(pnlStart);
+		frmWorkerGeneralUI.getContentPane().add(pnlStart);
 		
 		pnlAddBook = new AddBookPanel();                              //  add a book panel
 		pnlAddBook.setBounds(230, 22, 501, 505);  
@@ -116,7 +120,7 @@ public class WorkerGeneralUI {
 		
 		/* ***************************** button of 'Add a book' panel **********************************/
 		
-		JButton btnAddbook = new JButton("Add a book");
+		btnAddbook = new JButton("Add a book");
 		btnAddbook.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		btnAddbook.setBounds(20, 243, 179, 23);
 		frmWorkerGeneralUI.getContentPane().add(btnAddbook);
@@ -133,7 +137,7 @@ public class WorkerGeneralUI {
 		
 		/* ************************* button of 'Remove exist book' panel ********************************/
 		
-		JButton btnRemoveBook = new JButton("Remove exist book");
+		btnRemoveBook = new JButton("Remove exist book");
 		btnRemoveBook.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		btnRemoveBook.setBounds(20, 277, 181, 23);
 		frmWorkerGeneralUI.getContentPane().add(btnRemoveBook);
@@ -150,9 +154,9 @@ public class WorkerGeneralUI {
 		
 		/* ********************** button of 'Update book information' panel *****************************/
 	
-		JButton btnUpdateBook = new JButton("<html>Update book<br />information</html>");
+		btnUpdateBook = new JButton("Update book");
 		btnUpdateBook.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		btnUpdateBook.setBounds(20, 313, 179, 55);
+		btnUpdateBook.setBounds(20, 313, 179, 23);
 		frmWorkerGeneralUI.getContentPane().add(btnUpdateBook);
 		
 		btnUpdateBook.addActionListener(new ActionListener() {      // show 'Update book information' panel if pressed
@@ -167,9 +171,9 @@ public class WorkerGeneralUI {
 		
 		/* ************************* button of 'WatchExamineReviews' panel *******************************/
 	
-		JButton btnWatchReviews = new JButton("Watch new reviews");
+		btnWatchReviews = new JButton("Watch new reviews");
 		btnWatchReviews.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		btnWatchReviews.setBounds(20, 379, 179, 23);
+		btnWatchReviews.setBounds(20, 347, 179, 23);
 		frmWorkerGeneralUI.getContentPane().add(btnWatchReviews);
 		
 		btnWatchReviews.addActionListener(new ActionListener() {      // show 'Watch new reviews' panel if pressed
@@ -193,9 +197,9 @@ public class WorkerGeneralUI {
 				frmWorkerGeneralUI.dispose();
 			}
 		});
-		btnLogout.setBounds(20, 429, 74, 23);
+		btnLogout.setBounds(10, 206, 74, 23);
 		frmWorkerGeneralUI.getContentPane().add(btnLogout);
-
+		
 	}
 	
 	
