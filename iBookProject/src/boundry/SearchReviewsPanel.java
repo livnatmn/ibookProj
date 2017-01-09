@@ -58,7 +58,8 @@ public class SearchReviewsPanel extends JPanel{
 		btnSearch.setBounds(138, 181, 84, 23);
 		add(btnSearch);
 		
-		JComboBox cbSrchKey = new JComboBox();
+		String[] keys = {"Title", "Author name", "key words" };
+		JComboBox cbSrchKey = new JComboBox(keys);
 		cbSrchKey.setBounds(137, 105, 153, 20);
 		add(cbSrchKey);
 		

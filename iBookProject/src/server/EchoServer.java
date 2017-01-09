@@ -47,6 +47,7 @@ public class EchoServer extends AbstractServer
 	  ArrayList<String> results;
 	  String actionReq, queryReq;
 	  System.out.println("Server- EchoServer- handleMessageFromClient::");
+	  System.out.println("Server- EchoServer- handleMessageFromClient::");
 	  
 	// Got request from client
 	  String[] splitedRequst = ((String)msg).split(":");
