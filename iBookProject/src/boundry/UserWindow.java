@@ -16,29 +16,29 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 public class UserWindow {
-
-	private JFrame frmUserWindow;
-	private JPanel pnlSrchBook;
-//	private JPanel pnlCb;
-	private JPanel pnlSrchReviews;
-	private AccountController accCntrl;
+	protected JFrame frmUserWindow;
+	protected JPanel pnlStart;
+	protected JPanel pnlSrchBook;
+	protected JPanel pnlSrchReviews;
+	protected InsertPaymentPanel pnlPayment;
+	protected AccountController accCntrl;
 	
-	/**
-	 * Create the application.
-	 */	
+	protected JButton btnSrchBook;
+	protected JButton btnSearchReviews;
+	protected JButton btnLogout;
+	protected JButton btnInsertPayment;
+
 	public UserWindow(AccountController accCntrl) {
 		this.accCntrl = accCntrl;
 		initialize();
 	}
 	
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		frmUserWindow = new JFrame();
 		frmUserWindow.setTitle("iBook - User Window");
 		frmUserWindow.getContentPane().setBackground(Color.WHITE);
-		frmUserWindow.setBounds(100, 100, 677, 513);
+		frmUserWindow.setBounds(100, 100, 677, 855);
 		frmUserWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUserWindow.getContentPane().setLayout(null);
 
@@ -56,52 +56,62 @@ public class UserWindow {
 		pnlSrchBook.setVisible(false);
 		frmUserWindow.getContentPane().add(pnlSrchBook);
 			
-		
-	/*	pnlCb = new cbPanel();
-		pnlCb.setBounds(230, 22, 352, 430);
-		pnlCb.setVisible(false);
-		frmUserWindow.getContentPane().add(pnlCb);
-	*/	
 		pnlSrchReviews = new SearchReviewsPanel();
 		pnlSrchReviews.setBounds(230, 22, 352, 430);
 		pnlSrchReviews.setVisible(false);
 		frmUserWindow.getContentPane().add(pnlSrchReviews);
 		
-		JPanel pnlStart = new WelcomePanel(accCntrl.usr.GetUserName());
+		pnlStart = new WelcomePanel(accCntrl.usr.GetUserName());
 		pnlStart.setBounds(230, 22, 352, 430);
 		pnlStart.setVisible(true);
-		frmUserWindow.add(pnlStart);
+		frmUserWindow.getContentPane().add(pnlStart);
 		
-		JButton btnSrchWorker = new JButton("Search Book");
-		btnSrchWorker.addActionListener(new ActionListener() {
+		btnSrchBook = new JButton("Search Book");
+		btnSrchBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pnlSrchBook.setVisible(true);
-				//pnlCb.setVisible(true);
 				pnlSrchReviews.setVisible(false);
+				pnlPayment.setVisible(false);
+				pnlStart.setVisible(false);
 			}
 		});
-		btnSrchWorker.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		btnSrchWorker.setBounds(20, 243, 179, 23);
-		frmUserWindow.getContentPane().add(btnSrchWorker);
+		btnSrchBook.setFont(new Font("Times New Roman", Font.BOLD, 19));
+		btnSrchBook.setBounds(20, 240, 179, 23);
+		frmUserWindow.getContentPane().add(btnSrchBook);
 		
-		JButton btnSearchReviews = new JButton("Search Reviews");
+		btnSearchReviews = new JButton("Search Reviews");
 		btnSearchReviews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pnlSrchBook.setVisible(false);
 				pnlSrchReviews.setVisible(true);
+				pnlPayment.setVisible(false);
+				pnlStart.setVisible(false);
 			}
 		});
 		btnSearchReviews.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		btnSearchReviews.setBounds(20, 277, 179, 23);
+		btnSearchReviews.setBounds(20, 270, 179, 23);
 		pnlSrchReviews.setVisible(false);
 		frmUserWindow.getContentPane().add(btnSearchReviews);
 		
-		JButton btnInsertPayment = new JButton("Insert payment");
+		pnlPayment = new InsertPaymentPanel();
+		pnlPayment.setBounds(230, 22, 352, 430);
+		pnlPayment.setVisible(false);
+		frmUserWindow.getContentPane().add(pnlPayment);
+			
+		btnInsertPayment = new JButton("Insert payment");
+		btnInsertPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnlSrchBook.setVisible(false);
+				pnlSrchReviews.setVisible(false);
+				pnlPayment.setVisible(true);
+				pnlStart.setVisible(false);
+			}
+		});
 		btnInsertPayment.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		btnInsertPayment.setBounds(20, 313, 179, 23);
+		btnInsertPayment.setBounds(20, 300, 179, 23);
 		frmUserWindow.getContentPane().add(btnInsertPayment);
 		
-		JButton btnLogout = new JButton("Logout");
+		btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LogingOut();
@@ -110,12 +120,10 @@ public class UserWindow {
 				frmUserWindow.dispose();
 			}
 		});
-		btnLogout.setBounds(20, 429, 74, 23);
+		btnLogout.setBounds(10, 209, 74, 23);
 		frmUserWindow.getContentPane().add(btnLogout);
-	//	pnlStart.setBackground(Color.YELLOW);
-			
+		
 		frmUserWindow.setVisible(true);
-	
 		frmUserWindow.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {

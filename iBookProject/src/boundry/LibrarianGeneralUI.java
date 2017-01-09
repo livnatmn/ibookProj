@@ -45,7 +45,7 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 	
 	JButton btncheckpenduser = new JButton("Check Pending Users");
 	btncheckpenduser.setFont(new Font("Tahoma", Font.BOLD, 13));
-	btncheckpenduser.setBounds(20, 416, 179, 23);
+	btncheckpenduser.setBounds(20, 450, 179, 23);
 	frmLibrarianGeneralUI.getContentPane().add(btncheckpenduser);
 	
 	btncheckpenduser.addActionListener(new ActionListener() {       
@@ -54,6 +54,7 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 			pnlRemoveBook.setVisible(false);
 			pnlUpdateBook.setVisible(false);
 			//frmLibrarianGeneralUI.setVisible(false);
+			pnlWatchExamineReviews.setVisible(false);
 			pnlArrangePayment.setVisible(false);
 			pnlCheckPendingUsers.setVisible(true);
 			pnlUpdateUserInfo.setVisible(false);
@@ -70,7 +71,7 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 	
 	JButton btnArrangePayment = new JButton("Arrange Payment");
 	btnArrangePayment.setFont(new Font("Tahoma", Font.BOLD, 13));
-	btnArrangePayment.setBounds(20, 450, 179, 23);
+	btnArrangePayment.setBounds(20, 480, 179, 23);
 	frmLibrarianGeneralUI.getContentPane().add(btnArrangePayment);
 
 	
@@ -97,7 +98,7 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 	
 	JButton btnUpdateUser = new JButton("Update User Information");
 	btnUpdateUser.setFont(new Font("Tahoma", Font.BOLD, 13));
-	btnUpdateUser.setBounds(20, 482, 179, 23);
+	btnUpdateUser.setBounds(20, 510, 179, 23);
 	frmLibrarianGeneralUI.getContentPane().add(btnUpdateUser);
 	
 	
@@ -126,7 +127,7 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 	
 	JButton btnOrganizeInventory  = new JButton("Organize inventory books");
 	btnOrganizeInventory.setFont(new Font("Tahoma", Font.BOLD, 13));
-	btnOrganizeInventory.setBounds(20, 382, 179, 23);
+	btnOrganizeInventory.setBounds(20, 540, 179, 23);
 	frmLibrarianGeneralUI.getContentPane().add(btnOrganizeInventory);
 	
 	
@@ -166,6 +167,12 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 			pnlArrangePayment.setVisible(false);
 			pnlUpdateUserInfo.setVisible(false);
 			pnlOrganizeBooks.setVisible(false);
+			
+			// user's
+			pnlSrchBook.setVisible(false);
+			pnlSrchReviews.setVisible(false);
+			pnlStart.setVisible(false);
+			pnlPayment.setVisible(false);
 		}
 	});
 	   
@@ -180,6 +187,12 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 				pnlArrangePayment.setVisible(false);
 				pnlUpdateUserInfo.setVisible(false);
 				pnlOrganizeBooks.setVisible(false);
+
+				// user's
+				pnlSrchBook.setVisible(false);
+				pnlSrchReviews.setVisible(false);
+				pnlStart.setVisible(false);
+				pnlPayment.setVisible(false);
 			}
 		});
 		
@@ -194,6 +207,12 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 				pnlArrangePayment.setVisible(false);
 				pnlUpdateUserInfo.setVisible(false);
 				pnlOrganizeBooks.setVisible(false);
+
+				// user's
+				pnlSrchBook.setVisible(false);
+				pnlSrchReviews.setVisible(false);
+				pnlStart.setVisible(false);
+				pnlPayment.setVisible(false);
 			}
 		});
 		
@@ -204,6 +223,42 @@ public class LibrarianGeneralUI extends WorkerGeneralUI {
 //				pnlUpdateBook.setVisible(false);
 //				pnlWatchExamineReviews.setVisible(true);
 				////frmLibrarianGeneralUI.setVisible(true);
+				pnlCheckPendingUsers.setVisible(false);
+				pnlArrangePayment.setVisible(false);
+				pnlUpdateUserInfo.setVisible(false);
+				pnlOrganizeBooks.setVisible(false);
+
+				// user's
+				pnlSrchBook.setVisible(false);
+				pnlSrchReviews.setVisible(false);
+				pnlStart.setVisible(false);
+				pnlPayment.setVisible(false);
+			}
+		});
+		
+		
+		// ### user's actions ###
+		
+		btnSrchBook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pnlCheckPendingUsers.setVisible(false);
+				pnlArrangePayment.setVisible(false);
+				pnlUpdateUserInfo.setVisible(false);
+				pnlOrganizeBooks.setVisible(false);
+			}
+		});
+		
+		btnSearchReviews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pnlCheckPendingUsers.setVisible(false);
+				pnlArrangePayment.setVisible(false);
+				pnlUpdateUserInfo.setVisible(false);
+				pnlOrganizeBooks.setVisible(false);
+			}
+		});
+		
+		btnInsertPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				pnlCheckPendingUsers.setVisible(false);
 				pnlArrangePayment.setVisible(false);
 				pnlUpdateUserInfo.setVisible(false);

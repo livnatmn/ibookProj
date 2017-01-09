@@ -128,7 +128,7 @@ public class Login {
 							frmLogin.dispose();
 							break;
 						case 1:	// open Paying-User window and shut current frame.
-							new UserWindow(accCntrl);
+							new PayingUserWindow(accCntrl);
 							frmLogin.dispose();
 							break;
 						case 2:	// open Librarian window and shut current frame.
