@@ -1,10 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 public class SearchBookController {
-
+/*
 	public void SearchBookByOneFeature(ArrayList<Pair<String,String>> arr_srchFlds)
 	{
 		System.out.println("SearchBookController-SearchBookByOneFeature");
@@ -59,5 +59,5 @@ public class SearchBookController {
 		for(int i=0; i<arr_results.size(); i++)
 			System.out.println(arr_results.get(i));
 	}
-	
+	*/
 }
