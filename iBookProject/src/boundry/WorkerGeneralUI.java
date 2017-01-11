@@ -25,7 +25,7 @@ public class WorkerGeneralUI extends UserWindow{
 		frmWorkerGeneralUI = super.frmUserWindow;
 		initialize();
 	}
-
+//
 	private void initialize() {				/*** Initialize the content of the frame. */
 		pnlAddBook = new AddBookPanel();                              //  add a book panel
 		pnlAddBook.setBounds(230, 22, 501, 505);  
