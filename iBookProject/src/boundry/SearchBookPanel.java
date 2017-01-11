@@ -6,21 +6,23 @@ import javax.swing.*;
 //import javafx.util.Pair;
 import java.util.*;
 import controller.*;
+import enums.FontsType;
 
 
 public class SearchBookPanel extends JPanel
 	                     implements ActionListener {
 
-	static JFrame frame;
-    BookController bookCtrl;
-    SearchBookController srchBookCtrl;
-    String[] categoriesName;
-    String[] authorsName;
-    String[] langsName;
+
+    private String[] categoriesName;
+    private String[] authorsName;
+    private String[] langsName;
     private int chosenCatID;
-    private boolean init;
-    
-	private JTextField tfTitle;
+    private boolean isStart;
+    private boolean isRegularMode;
+	
+	static JFrame frame;
+	private JPanel pnlFields;
+    private JTextField tfTitle;
 	private JComboBox<String> cbLanguage;
 	private JComboBox<String> cbSubject;
 	private JComboBox<String> cbCategory;
@@ -29,116 +31,141 @@ public class SearchBookPanel extends JPanel
 	private JRadioButton rdbtnAnd;
 	private JLabel lblSubject, lblSearchBy;
 	
+	private BookController bookCtrl;
+    private SearchBookController srchBookCtrl;
  
     public SearchBookPanel() {
- 		init = false; // Search not initialized
+ 		isStart = true;
+ 		isRegularMode = false;
     	bookCtrl = new BookController();
  		srchBookCtrl = new SearchBookController() ;
  		
-
-	//	categoriesName = null;
-	//	authorsName = null;
-	//	langsName = null;
-
- 		
-    	initialize();
-    }
+ 		InitTopPanel();
+        InitBottomPanel();
+    }    
     
-    
-	private void initialize() {
+	private void InitTopPanel() {
 		setLayout(null);
         
-        //Group the radio buttons.
-	    ButtonGroup grpType = new ButtonGroup();
+		JPanel pnlButtons = new JPanel();
+		pnlButtons.setBounds(0, 0, 345, 212);
+		add(pnlButtons);
+		pnlButtons.setLayout(null);
 		
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	//    if(rdbtnRegular.isSelected() || rdbtnAdvanced.isSelected())
-	//    {
-	    	System.out.println("radio isSelected");
+		JLabel label = new JLabel("Search type:");
+	    label.setBounds(25, 86, 109, 20);
+	    pnlButtons.add(label);
+	    label.setFont(new Font("Sitka Text", Font.BOLD, 14));
 		
-		//Group the radio buttons.
-	    ButtonGroup grpAction = new ButtonGroup();
+		JLabel lblInst = new JLabel("Please insert book details to search:");
+		lblInst.setBounds(30, 57, 233, 20);
+		pnlButtons.add(lblInst);
+		lblInst.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+
+        JLabel lblType1 = new JLabel();
+        lblType1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+        lblType1.setBounds(25, 148, 205, 20);
+        pnlButtons.add(lblType1);
         
-        JPanel panel = new JPanel();
-        panel.setBounds(78, 279, 155, -12);
-        add(panel);
+        JLabel lblType2 = new JLabel();
+        lblType2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+        lblType2.setBounds(52, 166, 214, 20);
+        pnlButtons.add(lblType2);
+	    
+        JLabel lblSearchTitle = new JLabel("Search for book");
+        lblSearchTitle.setBounds(10, 11, 336, 20);
+        pnlButtons.add(lblSearchTitle);
+        lblSearchTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSearchTitle.setFont(new Font("Goudy Stout", Font.PLAIN, 15));
+	        
+        JButton btnRegular = new JButton("Regular");
+        btnRegular.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(isStart){
+        			InitCombosBox();
+        			isStart = false;
+        		}
+        		
+				lblSearchBy.setEnabled(false);
+				rdbtnOr.setEnabled(false);
+				rdbtnAnd.setEnabled(false);
+				
+
+        		isRegularMode = true;
+        		lblType1.setText("You now in REGULAR search mode.");
+        		lblType2.setText("Please fill exactly one field.");
+//		        String text = "You now in ";//{Regular} search mode.";
+//		        text += (isRegularMode)? "Regular " : "Advanced ";
+//		        text += "search mode.";
+        	}
+        });
+        btnRegular.setBounds(66, 105, 95, 27);
+        btnRegular.setFont(new Font("Sitka Text", Font.PLAIN, 14));
+        pnlButtons.add(btnRegular);
+	        
+        JButton btnAdvanced = new JButton("Advanced");
+        btnAdvanced.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		if(isStart){
+        			InitCombosBox();
+        			isStart = false;
+        		}
+
+        		lblSearchBy.setEnabled(true);
+				rdbtnOr.setEnabled(true);
+				rdbtnAnd.setEnabled(true);
+				
+				isRegularMode = false;
+        		lblType1.setText("You now in ADVANCED search mode.");
+        		lblType2.setText("Please fill two or more fields.");
+        	}
+        });
+        btnAdvanced.setBounds(171, 105, 95, 27);
+        btnAdvanced.setFont(new Font("Sitka Text", Font.PLAIN, 14));
+        pnlButtons.add(btnAdvanced);
         
-        JPanel pnlFields = new JPanel();
-        pnlFields.setBounds(0, 141, 345, 204);
+     
+		
+    }// end InitTopPanel
+	
+	private void InitBottomPanel() {
+		setLayout(null);
+		
+		pnlFields = new JPanel();
+        pnlFields.setBounds(0, 213, 345, 193);
+        pnlFields.setVisible(false);
         add(pnlFields);
         pnlFields.setLayout(null);
         
         tfTitle = new JTextField();
         tfTitle.setBounds(121, 11, 155, 20);
         pnlFields.add(tfTitle);
-        tfTitle.setEnabled(false);
         tfTitle.setColumns(10);
-        // define all
         
         JLabel lblTitle = new JLabel("Title:");
         lblTitle.setBounds(43, 14, 68, 14);
         pnlFields.add(lblTitle);
-        lblTitle.setEnabled(false);
         lblTitle.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        
-
         
         JLabel lblAuthor = new JLabel("Author:");
         lblAuthor.setBounds(43, 39, 68, 14);
         pnlFields.add(lblAuthor);
-        lblAuthor.setEnabled(false);
         lblAuthor.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        
-        cbAuthor = new JComboBox<String>();//authorsName);
-        cbAuthor.setBounds(121, 36, 155, 20);
-        pnlFields.add(cbAuthor);
-        cbAuthor.setEnabled(false);
-        cbAuthor.setEditable(true);
-        
-        cbLanguage = new JComboBox<String>();//langsName);
-        cbLanguage.setBounds(121, 61, 155, 20);
-        pnlFields.add(cbLanguage);
-        cbLanguage.setEnabled(false);
-        cbLanguage.setEditable(true);
         
         JLabel lblLanguage = new JLabel("Language:");
         lblLanguage.setBounds(43, 64, 68, 14);
         pnlFields.add(lblLanguage);
-        lblLanguage.setEnabled(false);
         lblLanguage.setFont(new Font("Sitka Text", Font.PLAIN, 14));
         
         JLabel lblCategory = new JLabel("Category:");
         lblCategory.setBounds(43, 89, 68, 14);
         pnlFields.add(lblCategory);
-        lblCategory.setEnabled(false);
         lblCategory.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        
-        cbCategory = new JComboBox<String>();//categoriesName);
-        cbCategory.setBounds(121, 86, 155, 20);
-        pnlFields.add(cbCategory);
-        cbCategory.setEnabled(false);
-        cbCategory.setEditable(true);
-        cbCategory.addActionListener(this);
-        cbCategory.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
-        cbSubject = new JComboBox<String>();
-        cbSubject.setBounds(121, 111, 155, 20);
-        pnlFields.add(cbSubject);
-        cbSubject.setEnabled(false);
         
         lblSubject = new JLabel("Subject:");
         lblSubject.setBounds(43, 114, 68, 14);
         pnlFields.add(lblSubject);
         lblSubject.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        lblSubject.setEnabled(false);
         
         lblSearchBy = new JLabel("Search by:");
         lblSearchBy.setBounds(43, 140, 72, 20);
@@ -146,77 +173,70 @@ public class SearchBookPanel extends JPanel
         lblSearchBy.setFont(new Font("Sitka Text", Font.PLAIN, 14));
         lblSearchBy.setEnabled(false);
         
-        		
-        		rdbtnAnd = new JRadioButton("AND");
-        		rdbtnAnd.setBounds(121, 138, 58, 23);
-        		pnlFields.add(rdbtnAnd);
-        		rdbtnAnd.setEnabled(false);
-        		grpAction.add(rdbtnAnd);
-        		
-        		rdbtnOr = new JRadioButton("OR");
-        		rdbtnOr.setBounds(198, 138, 58, 23);
-        		pnlFields.add(rdbtnOr);
-        		rdbtnOr.setEnabled(false);
-        		grpAction.add(rdbtnOr);
-        		
-        				
-        				JButton btnSearch = new JButton("Search");
-        				btnSearch.setBounds(131, 166, 89, 23);
-        				pnlFields.add(btnSearch);
-        				btnSearch.setEnabled(false);
-        				btnSearch.addActionListener(new ActionListener() {
-        					public void actionPerformed(ActionEvent arg0) {
-        						SearchBook();
-        					}
-        				});
-        				btnSearch.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        				
-        				JPanel panel_1 = new JPanel();
-        				panel_1.setBounds(0, 0, 345, 143);
-        				add(panel_1);
-        				panel_1.setLayout(null);
-        				
-        				JLabel lblInst = new JLabel("Please insert book details to search:");
-        				lblInst.setBounds(30, 57, 233, 20);
-        				panel_1.add(lblInst);
-        				lblInst.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-        				
-        				
-        				//// define radio
-        				 
-        JLabel label = new JLabel("Search type:");
-        label.setBounds(25, 86, 109, 20);
-        panel_1.add(label);
-        label.setFont(new Font("Sitka Text", Font.BOLD, 14));
+        //Group the radio buttons.
+        ButtonGroup grpAction = new ButtonGroup();
         
-        JLabel lblSearchTitle = new JLabel("Search for book");
-        lblSearchTitle.setBounds(10, 11, 336, 20);
-        panel_1.add(lblSearchTitle);
-        lblSearchTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSearchTitle.setFont(new Font("Goudy Stout", Font.PLAIN, 15));
-        
-        JButton btnRegular = new JButton("Regular");
-        btnRegular.setBounds(66, 105, 95, 27);
-        btnRegular.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        panel_1.add(btnRegular);
-        
-        JButton btnAdvanced = new JButton("Advanced");
-        btnAdvanced.setBounds(171, 105, 95, 27);
-        btnAdvanced.setFont(new Font("Sitka Text", Font.PLAIN, 14));
-        panel_1.add(btnAdvanced);
-        btnRegular.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-    			bookCtrl.GetAllCatsAndSubs();
-    			categoriesName = bookCtrl.GetCategoriesName();
-    			bookCtrl.GetAllAuthors();
-    			authorsName = bookCtrl.GetAuthorsName();
-    			bookCtrl.GetAllLanguages();
-    			langsName = bookCtrl.GetLanguagesName();
-        	}
-        });
-	  //  }// end if
-    } //init
+		rdbtnAnd = new JRadioButton("AND");
+		rdbtnAnd.setBounds(121, 138, 58, 23);
+		pnlFields.add(rdbtnAnd);
+		rdbtnAnd.setEnabled(false);
+		grpAction.add(rdbtnAnd);
+		
+		rdbtnOr = new JRadioButton("OR");
+		rdbtnOr.setBounds(198, 138, 58, 23);
+		pnlFields.add(rdbtnOr);
+		rdbtnOr.setEnabled(false);
+		grpAction.add(rdbtnOr);
+		
+		JButton btnSearch = new JButton("Search");
+		btnSearch.setBounds(131, 166, 89, 23);
+		pnlFields.add(btnSearch);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SearchBook();
+			}
+		});
+		btnSearch.setFont(new Font("Sitka Text", Font.PLAIN, 14));
+	}// end InitBottomPanel
  
+	private void InitCombosBox(){
+		
+		// Get values from DB
+		bookCtrl.GetAllCatsAndSubs();
+		categoriesName = bookCtrl.GetCategoriesName();
+		bookCtrl.GetAllAuthors();
+		authorsName = bookCtrl.GetAuthorsName();
+		bookCtrl.GetAllLanguages();
+		langsName = bookCtrl.GetLanguagesName();
+		
+		// Init Combos-Box
+		cbAuthor = new JComboBox<String>(authorsName);
+        cbAuthor.setBounds(121, 36, 155, 20);
+        pnlFields.add(cbAuthor);
+        cbAuthor.setEditable(true);
+        
+		cbLanguage = new JComboBox<String>(langsName);
+        cbLanguage.setBounds(121, 61, 155, 20);
+        pnlFields.add(cbLanguage);
+        cbLanguage.setEditable(true);
+        
+        cbCategory = new JComboBox<String>(categoriesName);
+        cbCategory.setBounds(121, 86, 155, 20);
+        pnlFields.add(cbCategory);
+        cbCategory.setEditable(true);
+        cbCategory.addActionListener(this);
+        cbCategory.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        cbSubject = new JComboBox<String>();
+        cbSubject.setBounds(121, 111, 155, 20);
+        pnlFields.add(cbSubject);
+        
+		pnlFields.setVisible(true);
+	}
+	
+	
+	
+	
     public void actionPerformed(ActionEvent e) {
         JComboBox<String> cb = (JComboBox<String>)e.getSource();
         String selection = (String)cb.getSelectedItem();
@@ -243,9 +263,118 @@ public class SearchBookPanel extends JPanel
     }// end cbSubject actionPerformed.
 
     
-    
-	private void SearchBook()
+    private void SearchBook()
 	{
+		String str;
+		HashMap<String, String> hm_fields = new HashMap<String, String>();
+		hm_fields.clear();
+		
+		if(!tfTitle.getText().equals(""))
+			hm_fields.put("title",tfTitle.getText());
+		
+		str = (String)cbAuthor.getSelectedItem();
+		if(!str.equals("")) hm_fields.put("author",str);
+
+		str = (String)cbLanguage.getSelectedItem();
+		if(!str.equals("")) hm_fields.put("language",str);
+
+		str = (String)cbCategory.getSelectedItem();
+		if(!str.equals("")) hm_fields.put("category",str);
+
+//		str = (String)cbSubject.getSelectedItem();
+//		if(!str.equals("")) hm_fields.put("subject",str);
+	
+		// Print all - DEL
+		for (String key: hm_fields.keySet()) {
+		    System.out.println("==\nkey : " + key);
+		    System.out.println("value : " + hm_fields.get(key));
+		}
+		
+		// Verify not all fields are empty
+		if(hm_fields.isEmpty())
+			JOptionPane.showMessageDialog(null,"You can't start the search with empty fields.", "Search Error",JOptionPane.ERROR_MESSAGE);
+		else if(isRegularMode)
+			RegularSearch(hm_fields);
+		else AdvancedSearch(hm_fields);
+	}
+    
+    
+    private void RegularSearch(HashMap<String, String> hm_fields)
+    {
+    	int size = hm_fields.size();
+
+		if(size > 1)
+		{
+			JOptionPane.showMessageDialog(null,"Too many fields. Please choose only one field to search by.", "Search Error",JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		srchBookCtrl.SearchBookByOneFeature(hm_fields);
+    }
+    
+    
+    
+    
+    private void AdvancedSearch(HashMap<String, String> hm_fields)
+    {
+    	// if !rdbtnOr.isSelected()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		
+		// IGNORE MEANWHILE
 	//	boolean allowSearch = false;
 		String txt="";
 	//	int fieldsCount = 0;
@@ -315,33 +444,6 @@ public class SearchBookPanel extends JPanel
 //			} // end else Search by some fields.
 //		} // end else fields not empty.
 	} // end else SearchBook function.
+	*/
 	
-	
-	private void EmptyFields()
-	{
-		JOptionPane.showMessageDialog(null,"Please insert any value for search.", "Search Error",JOptionPane.ERROR_MESSAGE);
-
-		lblSearchBy.setEnabled(false);
-		rdbtnOr.setEnabled(false);
-		rdbtnAnd.setEnabled(false);
-	}
-	
-	
-//	private void SearchByOneField(ArrayList<Pair<String,String>> arr_srchFlds)
-//	{
-//		lblSearchBy.setEnabled(false);
-//		rdbtnOr.setEnabled(false);
-//		rdbtnOr.setSelected(false);
-//		rdbtnAnd.setEnabled(false);
-//		rdbtnAnd.setSelected(false);
-//		
-//		srchBookCtrl.SearchBookByOneFeature(arr_srchFlds);
-//	}
-//	
-//	
-//	private void SearchBySomeFields(ArrayList<Pair<String,String>> arr_srchFlds, String action)
-//	{
-//		srchBookCtrl.SearchBookBySomeFeatures(arr_srchFlds, action);
-//		
-//	}
 }

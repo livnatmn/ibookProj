@@ -27,6 +27,7 @@ public class UserWindow {
 	protected JButton btnSearchReviews;
 	protected JButton btnLogout;
 	protected JButton btnInsertPayment;
+	
 
 	public UserWindow(AccountController accCntrl) {
 		this.accCntrl = accCntrl;
@@ -35,6 +36,7 @@ public class UserWindow {
 	
 
 	private void initialize() {
+		
 		frmUserWindow = new JFrame();
 		frmUserWindow.setTitle("iBook - User Window");
 		frmUserWindow.getContentPane().setBackground(Color.WHITE);

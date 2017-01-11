@@ -1,2 +1,9 @@
-/controller/
 /boundry/
+/client/
+/common/
+/controller/
+/entity/
+/enums/
+/jdbc/
+/ocsf/
+/server/

@@ -2,9 +2,47 @@ package controller;
 
 import java.util.ArrayList;
 //import javafx.util.Pair;
+import java.util.HashMap;
+
+import javafx.util.Pair;
 
 public class SearchBookController {
-/*
+	
+	public void SearchBookByOneFeature(HashMap<String, String> hm_fields)
+	{
+		Pair<String,String> k;
+		String query = "GET:SELECT book.* ";
+		String from = " FROM ";
+		String where = " WHERE ";
+		
+		// Run of all the values
+//		for (String key: hm_fields.keySet()) {
+//		    System.out.println("==\nkey : " + key);
+//		    System.out.println("value : " + hm_fields.get(key));
+//		}
+		
+		 // Using for each loop to iterate array of Pair Objects
+
+//          switch(hm_fields.get(key))
+//          {
+//          case "title": from+=" book,";
+//          				where+=" title like \"%"+temp.getValue()+"%\" "+action;
+//          				//where+=" title like \"%"+temp.getValue()+"%\";";
+//          				break;
+//          case "author":from+=" author_of_book,";
+//						where+=" title like \"%"+temp.getValue()+"%\";";
+//						break;
+//          case "language":
+//        	  break;
+//          case "subject":
+//        	  break;
+//          default:
+//          }
+//        }
+	}
+	
+	
+/*	
 	public void SearchBookByOneFeature(ArrayList<Pair<String,String>> arr_srchFlds)
 	{
 		System.out.println("SearchBookController-SearchBookByOneFeature");
@@ -12,7 +50,7 @@ public class SearchBookController {
 		
 	}
 	
-	
+
 	public void SearchBookBySomeFeatures(ArrayList<Pair<String,String>> arr_srchFlds, String action)
 	{
 		ArrayList<String> arr_results;
