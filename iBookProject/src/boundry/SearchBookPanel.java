@@ -6,7 +6,6 @@ import javax.swing.*;
 //import javafx.util.Pair;
 import java.util.*;
 import controller.*;
-import enums.FontsType;
 
 
 public class SearchBookPanel extends JPanel
@@ -27,17 +26,18 @@ public class SearchBookPanel extends JPanel
 	private JComboBox<String> cbSubject;
 	private JComboBox<String> cbCategory;
 	private JComboBox<String> cbAuthor;
-	private JRadioButton rdbtnOr;
-	private JRadioButton rdbtnAnd;
+	private JRadioButton rdbtnOr, rdbtnAnd;
+	private JRadioButton rdbtnRegular, rdbtnAdvanced;
 	private JLabel lblSubject, lblSearchBy;
+	
 	
 	private BookController bookCtrl;
     private SearchBookController srchBookCtrl;
  
-    public SearchBookPanel() {
+    public SearchBookPanel(BookController bookCtrl) {
  		isStart = true;
  		isRegularMode = false;
-    	bookCtrl = new BookController();
+    	this.bookCtrl = bookCtrl;
  		srchBookCtrl = new SearchBookController() ;
  		
  		InitTopPanel();
@@ -64,12 +64,12 @@ public class SearchBookPanel extends JPanel
 
         JLabel lblType1 = new JLabel();
         lblType1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-        lblType1.setBounds(25, 148, 205, 20);
+        lblType1.setBounds(25, 148, 297, 20);
         pnlButtons.add(lblType1);
         
         JLabel lblType2 = new JLabel();
         lblType2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-        lblType2.setBounds(52, 166, 214, 20);
+        lblType2.setBounds(52, 166, 259, 20);
         pnlButtons.add(lblType2);
 	    
         JLabel lblSearchTitle = new JLabel("Search for book");
@@ -124,9 +124,22 @@ public class SearchBookPanel extends JPanel
         btnAdvanced.setFont(new Font("Sitka Text", Font.PLAIN, 14));
         pnlButtons.add(btnAdvanced);
         
-     
-		
+
+        ButtonGroup grpSearch = new ButtonGroup();
+        
+        rdbtnRegular = new JRadioButton("Regular");
+        rdbtnRegular.setBounds(118, 85, 82, 23);
+        rdbtnRegular.setSelected(true);
+        pnlButtons.add(rdbtnRegular);
+        grpSearch.add(rdbtnRegular);
+        
+        rdbtnAdvanced = new JRadioButton("Advanced");
+        rdbtnAdvanced.setBounds(202, 85, 109, 23);
+        pnlButtons.add(rdbtnAdvanced);
+        grpSearch.add(rdbtnAdvanced);
+        
     }// end InitTopPanel
+	
 	
 	private void InitBottomPanel() {
 		setLayout(null);
@@ -162,10 +175,22 @@ public class SearchBookPanel extends JPanel
         pnlFields.add(lblCategory);
         lblCategory.setFont(new Font("Sitka Text", Font.PLAIN, 14));
         
+		categoriesName = bookCtrl.GetCategoriesName();
+        cbCategory = new JComboBox<String>(categoriesName);
+        cbCategory.setBounds(121, 86, 155, 20);
+        pnlFields.add(cbCategory);
+        cbCategory.setEditable(true);
+        cbCategory.addActionListener(this);
+        cbCategory.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         lblSubject = new JLabel("Subject:");
         lblSubject.setBounds(43, 114, 68, 14);
         pnlFields.add(lblSubject);
         lblSubject.setFont(new Font("Sitka Text", Font.PLAIN, 14));
+        
+        cbSubject = new JComboBox<String>();
+        cbSubject.setBounds(121, 111, 155, 20);
+        pnlFields.add(cbSubject);
         
         lblSearchBy = new JLabel("Search by:");
         lblSearchBy.setBounds(43, 140, 72, 20);
@@ -188,11 +213,23 @@ public class SearchBookPanel extends JPanel
 		rdbtnOr.setEnabled(false);
 		grpAction.add(rdbtnOr);
 		
+		
+		if(rdbtnRegular.isSelected() || rdbtnRegular.isSelected())
+		{
+			if(isStart){
+    			InitCombosBox();
+    			isStart = false;
+    		}
+			
+		}
+		
+		
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBounds(131, 166, 89, 23);
 		pnlFields.add(btnSearch);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+//				cbCategory.add("TEMPPP");
 				SearchBook();
 			}
 		});
@@ -202,8 +239,6 @@ public class SearchBookPanel extends JPanel
 	private void InitCombosBox(){
 		
 		// Get values from DB
-		bookCtrl.GetAllCatsAndSubs();
-		categoriesName = bookCtrl.GetCategoriesName();
 		bookCtrl.GetAllAuthors();
 		authorsName = bookCtrl.GetAuthorsName();
 		bookCtrl.GetAllLanguages();
@@ -219,17 +254,6 @@ public class SearchBookPanel extends JPanel
         cbLanguage.setBounds(121, 61, 155, 20);
         pnlFields.add(cbLanguage);
         cbLanguage.setEditable(true);
-        
-        cbCategory = new JComboBox<String>(categoriesName);
-        cbCategory.setBounds(121, 86, 155, 20);
-        pnlFields.add(cbCategory);
-        cbCategory.setEditable(true);
-        cbCategory.addActionListener(this);
-        cbCategory.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
-        cbSubject = new JComboBox<String>();
-        cbSubject.setBounds(121, 111, 155, 20);
-        pnlFields.add(cbSubject);
         
 		pnlFields.setVisible(true);
 	}
@@ -318,132 +342,4 @@ public class SearchBookPanel extends JPanel
     {
     	// if !rdbtnOr.isSelected()
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		
-		// IGNORE MEANWHILE
-	//	boolean allowSearch = false;
-		String txt="";
-	//	int fieldsCount = 0;
-		
-		// Check if all fields are empty - a search not performed.
-		if(tfTitle.getText().equals("") &&
-				cbAuthor.getSelectedItem().equals("") &&
-				cbLanguage.getSelectedItem().equals("") &&
-				cbCategory.getSelectedItem().equals("") &&
-				cbSubject.getItemCount() == 0)
-		{
-			EmptyFields();
-		}
-//		else
-//		{ // at least 1 field filled for search
-//			//	fieldsCount = 0;
-//			
-//			ArrayList<Pair<String,String>> arr_srchFlds = new ArrayList<Pair<String,String>>();
-//			arr_srchFlds.clear();
-//			
-//			if(!tfTitle.getText().equals(""))
-//				arr_srchFlds.add(new Pair<String,String>("title",tfTitle.getText()));
-//
-//			txt = (String)cbAuthor.getSelectedItem();
-//			if(!txt.equals(""))
-//				arr_srchFlds.add(new Pair<String,String>("author",txt));
-//
-//			txt = (String)cbLanguage.getSelectedItem();
-//			if(!txt.equals(""))
-//				arr_srchFlds.add(new Pair<String,String>("language",txt));
-//
-//			txt = (String)cbCategory.getSelectedItem();
-//			if(!txt.equals(""))
-//			{
-//				arr_srchFlds.add(new Pair<String,String>("category",txt));
-//				
-//				txt = (String)cbSubject.getSelectedItem();
-//				arr_srchFlds.add(new Pair<String,String>("subject",txt));
-//			}
-//			
-//			if(arr_srchFlds.isEmpty())
-//				EmptyFields();
-//			else if(arr_srchFlds.size() == 1)
-//			{
-//				System.out.println("arr_srchFlds.size() == 1");
-//				SearchByOneField(arr_srchFlds);
-//			}
-//			else
-//			{
-//				String action;
-//				if(rdbtnOr.isSelected() || rdbtnAnd.isSelected())
-//				{
-//					action = (rdbtnOr.isSelected())? " OR " : " AND ";
-//					SearchBySomeFields(arr_srchFlds, action);
-//				}
-//				else
-//				{
-//					JOptionPane.showMessageDialog(null,"You selected more then 1 field to search.\n"
-//							+ "please choose search option(OR / AND).", "Search Info",JOptionPane.INFORMATION_MESSAGE);
-//	
-//					lblSearchBy.setEnabled(true);
-//					rdbtnOr.setEnabled(true);
-//					rdbtnAnd.setEnabled(true);
-//					rdbtnOr.setSelected(false);
-//					rdbtnAnd.setSelected(false);
-//				} // end else choose action.
-//			} // end else Search by some fields.
-//		} // end else fields not empty.
-	} // end else SearchBook function.
-	*/
-	
 }

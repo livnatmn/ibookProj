@@ -10,10 +10,46 @@ public class SearchBookController {
 	
 	public void SearchBookByOneFeature(HashMap<String, String> hm_fields)
 	{
-		Pair<String,String> k;
-		String query = "GET:SELECT book.* ";
-		String from = " FROM ";
+		ArrayList<String> arr_results;
+		
+		String get = "GET:SELECT book.* ";
+		String from = " FROM book";
 		String where = " WHERE ";
+		
+		for (String key: hm_fields.keySet()) {
+			System.out.println("into for");
+			System.out.println("hm_fields.get(key)= "+hm_fields.get(key));
+			
+          switch(key)
+          {
+          case "title":// from+=" book, ";
+        	  System.out.println("into title");
+          				where+=" title like \"%"+hm_fields.get(key)+"%\" ";
+          				break;
+          case "author":from+=", author_of_book ";
+					//	where+=" title like \"%"+temp.getValue()+"%\";";
+						break;
+          case "language":
+        	  break;
+          case "subject":
+        	  break;
+          default:
+          }
+		}
+		
+		String query = get + from + where + ";";
+		System.out.println("SearchBookController-SearchBookByOneFeature");
+		System.out.println("query = "+query);
+		
+		controller.ClientController.SendQuery(query);
+		controller.ClientController.SetResults(query);
+		arr_results = ClientController.RecieveQueryResults();
+		
+		for(int i=0; i<arr_results.size(); i++)
+			System.out.println(arr_results.get(i));
+		
+		// check if book got visible = false, do not show it.
+		
 		
 		// Run of all the values
 //		for (String key: hm_fields.keySet()) {

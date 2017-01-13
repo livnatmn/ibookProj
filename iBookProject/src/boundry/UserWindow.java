@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import controller.AccountController;
+import controller.BookController;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -20,8 +22,12 @@ public class UserWindow {
 	protected JPanel pnlStart;
 	protected JPanel pnlSrchBook;
 	protected JPanel pnlSrchReviews;
+	PresentBookPanel pnlPrsntBook;	// DEL
 	protected InsertPaymentPanel pnlPayment;
+	
 	protected AccountController accCntrl;
+	protected BookController bookCtrl;
+	
 	
 	protected JButton btnSrchBook;
 	protected JButton btnSearchReviews;
@@ -30,6 +36,9 @@ public class UserWindow {
 	
 
 	public UserWindow(AccountController accCntrl) {
+    	bookCtrl = new BookController();
+		bookCtrl.GetAllCatsAndSubs();
+		
 		this.accCntrl = accCntrl;
 		initialize();
 	}
@@ -53,7 +62,7 @@ public class UserWindow {
 		lblSignPic.setBounds(10, 11, 210, 204);
 		frmUserWindow.getContentPane().add(lblSignPic);
 		
-		pnlSrchBook = new SearchBookPanel();
+		pnlSrchBook = new SearchBookPanel(bookCtrl);
 		pnlSrchBook.setBounds(230, 22, 352, 430);
 		pnlSrchBook.setVisible(false);
 		frmUserWindow.getContentPane().add(pnlSrchBook);
@@ -100,12 +109,20 @@ public class UserWindow {
 		pnlPayment.setVisible(false);
 		frmUserWindow.getContentPane().add(pnlPayment);
 			
+		
+		pnlPrsntBook = new PresentBookPanel();		// DELLLL
+		pnlPrsntBook.setBounds(100, 22, 352, 430);
+		pnlPrsntBook.setVisible(false);
+		frmUserWindow.getContentPane().add(pnlPrsntBook);
+	
+		
 		btnInsertPayment = new JButton("Insert payment");
 		btnInsertPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pnlSrchBook.setVisible(false);
 				pnlSrchReviews.setVisible(false);
-				pnlPayment.setVisible(true);
+				pnlPrsntBook.setVisible(true);
+				//pnlPayment.setVisible(true);
 				pnlStart.setVisible(false);
 			}
 		});
